@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "xo",
+    "overrides": [
+        {
+            "extends": ["xo-typescript"],
+            "files": ["*.ts"],
+            "rules": {
+                "no-console": 1,
+                "@typescript-eslint/semi": "off",
+                "@typescript-eslint/member-delimiter-style": "off",
+                "@typescript-eslint/consistent-type-definitions": "off",
+                "@typescript-eslint/naming-convention": "off",
+                "@typescript-eslint/indent": "off",
+                "@typescript-eslint/object-curly-spacing": "off"
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {}
+}
