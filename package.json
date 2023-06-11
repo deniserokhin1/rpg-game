@@ -3,9 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
+        "start": "env port=3000 webpack serve",
+        "build:prod": "env mode=production webpack",
+        "build:dev": "env mode=development webpack",
         "lint": "npx eslint src/**/*.ts",
-        "start": "webpack serve --env port=3000",
-        "build": "webpack --env mode=production",
         "prettier": "npx prettier --write src/*.ts",
         "prepare": "husky install"
     },
