@@ -1,4 +1,7 @@
 import { ClientEngine } from './ClientEngine'
+import { terrain as sprites } from '../configs/sprites'
+import levelCfg from '../configs/world.json'
+import { ClientWorld } from './ClientWorld'
 
 export interface ICfg {
     tagId: string
@@ -7,29 +10,42 @@ export interface ICfg {
 class ClientGame {
     static game: ClientGame | null = null
     cfg: ICfg = { tagId: '' }
-    engine: ClientEngine | undefined
+    engine: ClientEngine
+    world: ClientWorld
 
     constructor(cfg: ICfg) {
         Object.assign(this, {
             cfg,
         })
         this.engine = this.createEngine()
+        this.world = this.createWorld()
         this.initEngine()
     }
 
     createEngine() {
-        const canvas = document.getElementById(this.cfg.tagId)
-        if (!(canvas instanceof HTMLCanvasElement)) return
+        const canvas = document.getElementById(this.cfg.tagId) as HTMLCanvasElement
         return new ClientEngine(canvas)
     }
 
+    createWorld() {
+        return new ClientWorld(this, this.engine, levelCfg)
+    }
+
     initEngine() {
-        if (!this.engine) return
-        this.engine.start()
+        void this?.engine?.loadSprites(sprites).then(() => {
+            this?.engine?.start()
+
+            this.engine?.eventMixin.on('render', (_, time: number) => {
+                this.world.drawMap()
+            })
+        })
     }
 
     static init(cfg: ICfg) {
-        if (ClientGame.game) return
+        if (ClientGame.game) {
+            return
+        }
+
         ClientGame.game = new ClientGame(cfg)
     }
 }

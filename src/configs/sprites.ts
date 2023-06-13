@@ -1,11 +1,21 @@
 import terrainIMG from '../assets/terrain.png'
 
 export interface IThing {
-    img: typeof terrainIMG
+    img: string
     frames: number[][]
 }
 
+export interface ISprite {
+    sprite: ITerrainKeys[]
+    frame: number
+    x: number
+    y: number
+    w: number
+    h: number
+}
+
 export interface ITerrain {
+    [key: string]: IThing
     grass: IThing
     water: IThing
     wall: IThing
@@ -20,15 +30,13 @@ export interface IMap {
         x: number
         y: number
     }
-    layers: {
+    layers: Array<{
         isStatic: boolean
-    }[]
-    map: {
-        walls: string[][]
-    }[][]
+    }>
+    map: string[][][][]
 }
 
-export type ITerrainKeys = keyof typeof terrain
+export type ITerrainKeys = keyof ITerrain
 
 export const terrain: ITerrain = {
     grass: {
@@ -37,11 +45,11 @@ export const terrain: ITerrain = {
     },
     water: {
         img: terrainIMG,
-        frames: [[0, 576, 64, 64]],
+        frames: [[512, 64, 64, 64]],
     },
     wall: {
         img: terrainIMG,
-        frames: [[0, 64, 64, 64]],
+        frames: [[448, 0, 64, 64]],
     },
     spawn: {
         img: terrainIMG,

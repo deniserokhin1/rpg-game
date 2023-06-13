@@ -1,6 +1,6 @@
 import path from 'path'
 import HTMLWebpackPlugin from 'html-webpack-plugin'
-import webpack from 'webpack'
+import type webpack from 'webpack'
 import { buildDevServer } from './src/build/buildDevServer'
 
 const port = Number(process.env.port) || 3000
