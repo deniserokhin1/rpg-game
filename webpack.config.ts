@@ -8,7 +8,7 @@ const isDev = process.env.mode === 'development' || !process.env.mode
 
 const config: webpack.Configuration = {
     mode: isDev ? 'development' : 'production',
-    entry: path.resolve(__dirname, 'src/index.ts'),
+    entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
@@ -23,11 +23,6 @@ const config: webpack.Configuration = {
                 test: /\.(js|jsx|tsx)$/,
                 loader: 'babel-loader',
                 exclude: [/node_modules/],
-            },
-            {
-                test: /\.ts?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
             },
             {
                 test: /\.s[ac]ss$/i,

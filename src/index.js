@@ -1,11 +1,11 @@
 import './index.scss'
 import Person from './assets/Male-1-Walk.png'
 import terrainAtlas from './assets/terrain.png'
-import { terrain, type ITerrainKeys } from './configs/sprites'
+import { spriteConfig } from './configs/sprites'
 import world from './configs/world.json'
 import ClientGame from './client/ClientGame'
 
-const canvas = document.getElementById('game') as HTMLCanvasElement
+const canvas = document.getElementById('game')
 const ctx = canvas.getContext('2d')
 const widthField = canvas.width
 
@@ -14,8 +14,6 @@ const locality = document.createElement('img')
 img.src = Person
 locality.src = terrainAtlas
 
-type Direction = 'ArrowDown' | 'ArrowUp' | 'ArrowLeft' | 'ArrowRight'
-
 const spriteW = 48
 const spriteH = 48
 const shots = 3
@@ -23,19 +21,19 @@ let cycle = 0
 let bottomPresses = false
 let pY = widthField / 2 - spriteW / 2
 let pX = widthField / 2 - spriteW / 2
-let key: Direction
+let key
 let direction = 0
 let canMove = true
 
-function keyDownHandler(e: KeyboardEvent) {
+function keyDownHandler(e) {
     if (e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp') {
         bottomPresses = true
     }
 
-    key = e.key as Direction
+    key = e.key
 }
 
-function keyUpHandler(e: KeyboardEvent) {
+function keyUpHandler(e) {
     bottomPresses = false
     if (e.key === 'Down' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         bottomPresses = false
@@ -49,21 +47,22 @@ document.addEventListener('keyup', keyUpHandler)
 //     window.requestAnimationFrame(start)
 // })
 
+// Стартовая точка нашей логики
 window.addEventListener('load', () => {
     ClientGame.init({ tagId: 'game' })
 })
 
-locality.addEventListener('load', () => {
-    const { map } = world
-    map.forEach((row: ITerrainKeys[][], y: number) => {
-        row.forEach((cell, x) => {
-            const [sX, sY, sW, sH] = terrain[cell[0]].frames[0]
-            ctx?.drawImage(locality, sX, sY, sW, sH, spriteW * x, spriteH * y, spriteW, spriteH)
-        })
-    })
-})
+// locality.addEventListener('load', () => {
+//     const { map } = world
+//     map.forEach((row, y) => {
+//         row.forEach((cell, x) => {
+//             const [sX, sY, sW, sH] = spriteConfig.terrain[cell[0]].frames[0]
+//             ctx?.drawImage(locality, sX, sY, sW, sH, spriteW * x, spriteH * y, spriteW, spriteH)
+//         })
+//     })
+// })
 
-function start(timestamp: number) {
+function start(timestamp) {
     if (bottomPresses) {
         move()
         cycle = canMove ? (cycle + 1) % shots : 0
