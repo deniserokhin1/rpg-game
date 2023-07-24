@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "start": "env port=3000 webpack serve",
+        "dev": "env PORT=5001 nodemon scripts/start.js",
+        "start": "env port=3000 node scripts/start.js",
         "build:prod": "env mode=production webpack",
         "build:dev": "env mode=development webpack",
         "lint": "npx eslint src/**/*.js",
@@ -31,6 +32,7 @@
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^5.5.2",
         "husky": "^8.0.0",
+        "nodemon": "^3.0.1",
         "prettier": "^2.8.8",
         "sass": "^1.63.3",
         "sass-loader": "^13.3.2",
@@ -41,5 +43,9 @@
         "webpack": "^5.86.0",
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^4.15.1"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "express-fileupload": "^1.4.0"
     }
 }

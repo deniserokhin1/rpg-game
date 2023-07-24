@@ -6,6 +6,8 @@ import { buildDevServer } from './src/build/buildDevServer'
 const port = Number(process.env.port) || 3000
 const isDev = process.env.mode === 'development' || !process.env.mode
 
+console.log('isDev:', isDev)
+
 const config: webpack.Configuration = {
     mode: isDev ? 'development' : 'production',
     entry: path.resolve(__dirname, 'src/index.js'),
@@ -40,7 +42,7 @@ const config: webpack.Configuration = {
         }),
     ],
     devServer: buildDevServer(port),
-    devtool: isDev ? 'source-map' : false,
+    devtool: isDev ? 'source-map' : undefined,
 }
 
 export default config
