@@ -5,7 +5,12 @@ const path = require('path')
 const { PORT = 3000 } = process.env
 
 const app = express()
-app.use(express.static('dist'))
+// app.use(express.static('dist'))
+
+app.get('/', (req, res) => {
+    console.log('Yo Common!')
+    res.status(200).sendFile(path.resolve('dist/index.html'))
+})
 
 app.listen(PORT, () => {
     console.log(`Server is working on ${PORT} port`)
