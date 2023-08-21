@@ -2,6 +2,7 @@ import { clamp } from '../common/util'
 import EventSourceMixin from '../common/EventSourceMixin'
 import { ClientCamera } from './ClientCamera'
 import ClientInput from './ClientInput'
+import { spriteConfig } from '../configs/sprites'
 
 export class ClientEngine {
     constructor(canvas, game) {
